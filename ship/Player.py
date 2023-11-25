@@ -14,7 +14,8 @@ class Player(Ship):
   
   def draw(self, window):
     super().draw(window)
-    self.health_bar(window)
+    if self.health >= 0:
+      self.health_bar(window)
     
   def move_lasers(self, objs):
     self.cool_down()

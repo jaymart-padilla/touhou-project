@@ -15,8 +15,8 @@ from utils.collide import collide
 pygame.font.init()
 
 pygame.display.set_caption("Touhou Project")
-main_font = pygame.font.SysFont("OCR-A Extended", 20)
-lost_font = pygame.font.SysFont("Impact", 40)
+font_primary = pygame.font.SysFont("OCR-A Extended", 20)
+font_secondary = pygame.font.SysFont("Impact", 40)
 
 FPS = 60
 clock = pygame.time.Clock()
@@ -40,7 +40,7 @@ def main():
         window.WINDOW.blit(background.BACKGROUND, (0,0))
         
         # draw text
-        level_label = main_font.render(f"Level: {level}", 1, (255,255,255))
+        level_label = font_primary.render(f"Level: {level}", 1, (255,255,255))
         window.WINDOW.blit(level_label, (window.WIDTH - level_label.get_width() - 10, 10))
 
         for enemy in enemies:
@@ -53,7 +53,7 @@ def main():
         player.draw(window.WINDOW)
 
         if lost:
-            lost_label = lost_font.render("Game Over", 1, (255,255,255))
+            lost_label = font_secondary.render("Game Over", 1, (255,255,255))
             window.WINDOW.blit(lost_label, (window.WIDTH / 2 - lost_label.get_width() / 2, window.HEIGHT / 2 - lost_label.get_height() / 2))
 
         pygame.display.update()
