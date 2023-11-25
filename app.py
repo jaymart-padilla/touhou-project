@@ -9,6 +9,8 @@ from ship.Player import Player
 from ship.Enemy import Enemy
 # assets
 from constants import misc_objects
+# utils 
+from utils.collide import collide
 
 pygame.font.init()
 
@@ -29,8 +31,8 @@ def main():
     wave_length = 5
     WAVE_LENGTH_INCREMENT = int(wave_length * 1.25)
 
-    player = Player((window.WIDTH / 2) - 35, window.HEIGHT - 100, 75, 75)
-
+    player = Player((window.WIDTH / 2) - 35, window.HEIGHT - 120, 75, 75)
+    
     lost = False
     lost_count = 0
 
@@ -67,7 +69,7 @@ def main():
         if lost:
             if lost_count > FPS * 3:
                 run = False
-
+                
         if len(enemies) == 0:
             level += 1
             wave_length += WAVE_LENGTH_INCREMENT
@@ -91,12 +93,24 @@ def main():
             player.y -= player.velocity
         if (keys[pygame.K_DOWN] or keys[pygame.K_s]) and player.y + player.height < window.HEIGHT:
             player.y += player.velocity
+            
+        player.shoot()
 
         for enemy in enemies[:]:
             enemy.move(enemy.velocity)
-            if (enemy.y + enemy.height > window.HEIGHT):
+            enemy.move_lasers(player)
+            
+            if random.randrange(0, 2 * FPS) == 1:
+                enemy.shoot()
+                
+            if collide(enemy, player):
+                player.health -= 10
+                enemies.remove(enemy)
+            elif (enemy.y + enemy.height > window.HEIGHT):
                 enemies.remove(enemy)
                 lives -= 1
-            
+        
+        player.move_lasers(enemies)
+        
 # start program
 main()
