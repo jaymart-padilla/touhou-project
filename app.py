@@ -9,8 +9,6 @@ from ship.Player import Player
 from ship.Enemy import Enemy
 # assets
 from constants import misc_objects
-# misc
-from constants.fps import FPS
 
 pygame.font.init()
 
@@ -18,6 +16,7 @@ pygame.display.set_caption("Touhou Project")
 main_font = pygame.font.SysFont("OCR-A Extended", 20)
 lost_font = pygame.font.SysFont("Impact", 40)
 
+FPS = 60
 clock = pygame.time.Clock()
 
 
@@ -84,13 +83,13 @@ def main():
                     quit()
 
         keys = pygame.key.get_pressed()
-        if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and player.x - player.velocity > 0:
+        if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and player.x + player.velocity > 0:
             player.x -= player.velocity
-        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and player.x + player.velocity + player.width < window.WIDTH:
+        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and player.x + player.width < window.WIDTH:
             player.x += player.velocity
-        if (keys[pygame.K_UP] or keys[pygame.K_w]) and player.y - player.velocity > 0:
+        if (keys[pygame.K_UP] or keys[pygame.K_w]) and player.y > 0:
             player.y -= player.velocity
-        if (keys[pygame.K_DOWN] or keys[pygame.K_s]) and player.y + player.velocity + player.height + 15 < window.HEIGHT:
+        if (keys[pygame.K_DOWN] or keys[pygame.K_s]) and player.y + player.height < window.HEIGHT:
             player.y += player.velocity
 
         for enemy in enemies[:]:

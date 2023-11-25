@@ -1,9 +1,8 @@
 import pygame
 from laser.Laser import Laser
-from constants.fps import FPS
 
 class Ship:
-    COOL_DOWN = FPS / 2
+    COOL_DOWN = 30
     
     def __init__(self, x, y, width = 50, height = 50, health = 100, velocity = 5):
         self.x = x
@@ -20,7 +19,7 @@ class Ship:
     def draw(self, window):
       window.blit(self.ship_img, (self.x, self.y))
       
-    def cooldown(self):
+    def cool_down(self):
       # when cd_counter reaches 0, means the ship can shoot again
       # ship can only shoot when cd_counter reaches the self.COOL_DOWN
       if self.cool_down_counter >= self.COOL_DOWN:
