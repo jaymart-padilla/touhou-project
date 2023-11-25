@@ -100,7 +100,7 @@ def main():
             enemy.move(enemy.velocity)
             enemy.move_lasers(player)
             
-            if random.randrange(0, 2 * FPS) == 1:
+            if random.randrange(0, int(1.75 * FPS)) == 1:
                 enemy.shoot()
                 
             if collide(enemy, player):

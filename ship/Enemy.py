@@ -1,8 +1,8 @@
 import pygame
 from ship.Ship import Ship
-from constants.ships import RED_SPACE_SHIP
-from constants.ships import GREEN_SPACE_SHIP
-from constants.ships import BLUE_SPACE_SHIP
+from constants.ships import ALIEN_SHIP
+from constants.ships import PURPLE_SHIP
+from constants.ships import BLUE_SHIP
 from constants.lasers import RED_LASER
 from constants.lasers import GREEN_LASER
 from constants.lasers import BLUE_LASER
@@ -10,14 +10,17 @@ from laser.Laser import Laser
 
 class Enemy(Ship):
   COLOR_MAP = {
-    "red": (RED_SPACE_SHIP, RED_LASER),
-    "green": (GREEN_SPACE_SHIP, GREEN_LASER),
-    "blue": (BLUE_SPACE_SHIP, BLUE_LASER),
+    "red": (ALIEN_SHIP, RED_LASER),
+    "green": (PURPLE_SHIP, GREEN_LASER),
+    "blue": (BLUE_SHIP, BLUE_LASER),
   }
   
   def __init__(self, x, y, color, width = 50, height = 50,  health = 100, velocity = 5):
     super().__init__(x, y, width, height, health, velocity)
-    self.ship_img, self.laser_img = self.COLOR_MAP[color]
+    original_ship_img, self.laser_img = self.COLOR_MAP[color]
+
+    # Scale the ship's image to the specified width and height
+    self.ship_img = pygame.transform.scale(original_ship_img, (width, height))
     self.mask = pygame.mask.from_surface(self.ship_img)
   
   def shoot(self):
