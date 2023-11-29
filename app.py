@@ -26,20 +26,22 @@ def main():
     run = True
     level = 0
     lives = 5
-    
+
     enemies = []
-    wave_length = 5
-    WAVE_LENGTH_INCREMENT = int(wave_length * 1.25)
+    initial_wave_length = 3
 
     player = Player((window.WIDTH / 2) - 35, window.HEIGHT - 120, 75, 75)
     
     lost = False
-    lost_count = 0
+    won = False
+    loading_count = 0
 
     def redraw_window():
         window.WINDOW.blit(background.BACKGROUND, (0,0))
         
         # draw text
+        score_label = font_primary.render(f"Score: {player.score}", 1, (255,255,255))
+        window.WINDOW.blit(score_label, (10, 10))
         level_label = font_primary.render(f"Level: {level}", 1, (255,255,255))
         window.WINDOW.blit(level_label, (window.WIDTH - level_label.get_width() - 10, 10))
 
@@ -55,6 +57,14 @@ def main():
         if lost:
             lost_label = font_secondary.render("Game Over", 1, (255,255,255))
             window.WINDOW.blit(lost_label, (window.WIDTH / 2 - lost_label.get_width() / 2, window.HEIGHT / 2 - lost_label.get_height() / 2))
+            final_score_label = font_primary.render(f"Final Score: {player.score}", 1, (255,255,255))
+            window.WINDOW.blit(final_score_label, (window.WIDTH / 2 - final_score_label.get_width() / 2, (window.HEIGHT / 2 - lost_label.get_height() / 2) + lost_label.get_height()))
+            
+        if won:
+            won_label = font_secondary.render("You Won!", 1, (255,255,255))
+            window.WINDOW.blit(won_label, (window.WIDTH / 2 - won_label.get_width() / 2, window.HEIGHT / 2 - won_label.get_height() / 2))
+            final_score_label = font_primary.render(f"Final Score: {player.score}", 1, (255,255,255))
+            window.WINDOW.blit(final_score_label, (window.WIDTH / 2 - final_score_label.get_width() / 2, (window.HEIGHT / 2 - won_label.get_height() / 2) + won_label.get_height()))
 
         pygame.display.update()
 
@@ -64,17 +74,23 @@ def main():
 
         if lives <= 0 or player.health <= 0:
             lost = True
-            lost_count += 1
+            loading_count += 1
+        
+        if level >= 10:
+            won = True
+            loading_count += 1
 
-        if lost:
-            if lost_count > FPS * 3:
+        if lost or won:
+            if loading_count > FPS * 3:
                 run = False
+            else:
+                continue
                 
         if len(enemies) == 0:
             level += 1
-            wave_length += WAVE_LENGTH_INCREMENT
+            wave_length = int((initial_wave_length * level) * 1.85)
             for i in range(wave_length):
-                enemy = Enemy(random.randrange(50, window.WIDTH - 50), random.uniform(-200, int(-(window.HEIGHT * ((level - 1) * 0.5 + 1)))), random.choice(["red", "blue", "green"]), velocity=1)
+                enemy = Enemy(random.randrange(50, window.WIDTH - 50), random.uniform(-200, int(-(window.HEIGHT * ((level - 1) * 0.5 + 1)))), random.choice(["alien", "blue", "purple"]), velocity=1)
                 enemies.append(enemy)
 
         for event in pygame.event.get():
@@ -106,6 +122,7 @@ def main():
             if collide(enemy, player):
                 player.health -= 10
                 enemies.remove(enemy)
+                player.increment_score()
             elif (enemy.y + enemy.height > window.HEIGHT):
                 enemies.remove(enemy)
                 lives -= 1
