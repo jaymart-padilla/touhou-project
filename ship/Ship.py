@@ -15,7 +15,7 @@ class Ship:
         self.ship_img = None
         self.laser_img = None
         self.lasers = []
-        self.laser_numbers = 3
+        self.laser_numbers = 1
         self.power_ups = []
         self.laser_velocity = 5
         self.cool_down_counter = 0
