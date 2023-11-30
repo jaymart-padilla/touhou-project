@@ -1,13 +1,12 @@
 import pygame
 from utils.collide import collide
-from constants.ships import ALIEN_SHIP, PURPLE_SHIP, BLUE_SHIP
 from constants import misc_objects
 
 class Power:
   POWER_UP_MAP = {
-    "attack_speed": (ALIEN_SHIP),
-    "add_laser": (PURPLE_SHIP),
-    "movement_speed": (BLUE_SHIP),
+    "attack_speed": (misc_objects.ATTACK_SPEED),
+    "add_laser": (misc_objects.ADD_BULLET),
+    "movement_speed": (misc_objects.SPEED_UP),
     "regenerate_health": (misc_objects.HEART)
   }
   
