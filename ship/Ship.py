@@ -15,7 +15,7 @@ class Ship:
         self.ship_img = None
         self.laser_img = None
         self.lasers = []
-        self.laser_numbers = 1
+        self.laser_numbers = 3
         self.power_ups = []
         self.laser_velocity = 5
         self.cool_down_counter = 0
@@ -51,19 +51,19 @@ class Ship:
     def shoot(self):
       if self.cool_down_counter == 0:
         if self.laser_numbers == 1:
-          laser = Laser(self.x - (self.width // 6.25), self.y, self.laser_img)
+          laser = Laser(self.x + (self.width // 3.1), self.y, self.laser_img)
           self.lasers.append(laser)
           self.cool_down_counter = 1
         elif self.laser_numbers == 2:
-          laser1 = Laser(self.x - (self.width // 1.75), self.y, self.laser_img)
-          laser2 = Laser(self.x - (self.width // 12.5), self.y, self.laser_img)
+          laser1 = Laser(self.x + (self.width // 17.5), self.y, self.laser_img)
+          laser2 = Laser(self.x + (self.width // 1.75), self.y, self.laser_img)
           self.lasers.append(laser1)
           self.lasers.append(laser2)
           self.cool_down_counter = 1
         elif self.laser_numbers == 3:
-          laser1 = Laser(self.x - (self.width // 1.75), self.y, self.laser_img)
-          laser2 = Laser(self.x - (self.width // 6.25), self.y, self.laser_img)
-          laser3 = Laser(self.x + (self.width // 3.75), self.y, self.laser_img)
+          laser1 = Laser(self.x - (self.width // 10), self.y, self.laser_img)
+          laser2 = Laser(self.x + (self.width // 3.1), self.y, self.laser_img)
+          laser3 = Laser(self.x + (self.width // 1.4), self.y, self.laser_img)
           self.lasers.append(laser1)
           self.lasers.append(laser2)
           self.lasers.append(laser3)

@@ -5,14 +5,14 @@ from constants.ships import PURPLE_SHIP
 from constants.ships import BLUE_SHIP
 from constants.lasers import RED_LASER
 from constants.lasers import GREEN_LASER
-from constants.lasers import BLUE_LASER
+from constants.lasers import PURPLE_LASER
 from laser.Laser import Laser
 
 class Enemy(Ship):
   COLOR_MAP = {
     "alien": (ALIEN_SHIP, RED_LASER, 10),
     "purple": (PURPLE_SHIP, GREEN_LASER, 20),
-    "blue": (BLUE_SHIP, BLUE_LASER, 30),
+    "blue": (BLUE_SHIP, PURPLE_LASER, 30),
   }
   
   def __init__(self, x, y, color, width = 50, height = 50, health = 100, velocity = 5):
