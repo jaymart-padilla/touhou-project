@@ -90,7 +90,7 @@ def main():
             level += 1
             wave_length = int((initial_wave_length * level) * 1.85)
             for i in range(wave_length):
-                enemy = Enemy(random.randrange(50, window.WIDTH - 50), random.uniform(-200, int(-(window.HEIGHT * ((level - 1) * 0.5 + 1)))), random.choice(["alien", "blue", "purple"]), velocity=1)
+                enemy = Enemy(random.randrange(50, window.WIDTH - 50), random.uniform(-200, int(-(window.HEIGHT * ((level - 1) * 0.21 + 1)))), random.choice(["alien", "blue", "purple"]), velocity=1)
                 enemies.append(enemy)
 
         for event in pygame.event.get():
